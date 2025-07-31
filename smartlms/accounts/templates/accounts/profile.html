@@ -1,10 +1,28 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block title %}Profile{% endblock %}
 {% block content %}
-<h2>Welcome, {{ request.user.username }}</h2>
-<p>Email: {{ request.user.email }}</p>
-<p>Role: {{ request.user.get_role_display }}</p>
-{% if request.user.profile_picture %}
-    <img src="{{ request.user.profile_picture.url }}" alt="Profile Picture" width="120">
-{% endif %}
+    <div class="container mt-5">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+
+          <div class="card text-center shadow-lg bg-light">
+            <div class="card-body">
+              {% if request.user.profile_picture %}
+                <img src="{{ request.user.profile_picture.url }}" style="height:10rem;"
+                     class="rounded-circle mb-3" alt="Profile Picture" width="120" height="120">
+              {% else %}
+                <img src="{% static 'images/profile.jpg' %}" style="height:10rem;" class="rounded-circle mb-3" alt="Default Picture">
+              {% endif %}
+              <h4 class="card-title">{{ request.user.username }}</h4>
+              <p class="card-text">
+                <strong>Email:</strong> {{ request.user.email }}<br>
+                <strong>Role:</strong> {{ request.user.get_role_display }}
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
 {% endblock %}
